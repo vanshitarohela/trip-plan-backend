@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = {"http://localhost:4200/", "https://trip-plan-frontend.netlify.app/"})
 public class UserController {
     private final static Logger logger = LoggerFactory.getLogger(RestaurantController.class);
 
