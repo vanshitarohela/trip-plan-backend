@@ -18,21 +18,25 @@ public class UserService implements UserInterface {
     public UserRepository userRepository;
 
     @Override
+    // Gets all users
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
+    // Gets a user by passing id
     public Optional<User> getUserById(String id) {
         return userRepository.findById(id);
     }
 
     @Override
+    // Gets user based on city
     public Optional<List<User>> getUserByCity(String city) {
         return userRepository.getUserByCity(city);
     }
 
     @Override
+    // Updates existing user and throws error if user is not found
     public User updateUser(User user) {
         Optional<User> currUser = userRepository.findById(user.getId());
         if (currUser.isPresent()){
@@ -65,6 +69,7 @@ public class UserService implements UserInterface {
 
     @Override
     @Transactional
+    // Deletes a user
     public User deleteUser(User user) {
         Optional<User> currUser = userRepository.findById(user.getId());
         if (currUser.isPresent()) {
@@ -77,16 +82,18 @@ public class UserService implements UserInterface {
         }
     }
 
+    // Verifies the login details
+    // Throws IllegalArgumentException when email and password don't match
+    // Throws IllegalStateException when user doesn't exist
     public User verifyAuthentication(String email, String password) {
         Optional<User> loginUser =  userRepository.findByEmailAddress(email);
         if (loginUser.isPresent()) {
-            if (loginUser == userRepository.findByEmailAddressAndPassword(email, password)) {
-                // TODO: successful login
-                User u1 = loginUser.get();
-                return u1;
+            User user = loginUser.get();
+            if(user.getPassword().equals(password)) {
+                return user;
             }
             else {
-                throw new IllegalStateException("Email and password don't match");
+                throw new IllegalArgumentException("Email and password don't match");
             }
         }
         else {

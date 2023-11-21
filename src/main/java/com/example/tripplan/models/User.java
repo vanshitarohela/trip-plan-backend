@@ -20,9 +20,7 @@ public class User {
     private String name;
     private Gender gender;
     private String profilePicture;
-//    @Indexed(unique = true)
     private String emailAddress;
     private Location location;
-//    private String phoneNumber;
     private String password;
 }

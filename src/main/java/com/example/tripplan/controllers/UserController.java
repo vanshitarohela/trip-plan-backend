@@ -2,6 +2,7 @@ package com.example.tripplan.controllers;
 
 import com.example.tripplan.models.Restaurant;
 import com.example.tripplan.models.User;
+import com.example.tripplan.models.dtos.UserLogin;
 import com.example.tripplan.services.RestaurantService;
 import com.example.tripplan.services.UserService;
 import org.bson.types.ObjectId;
@@ -52,12 +53,15 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<User> verifyAuthentication(@RequestBody String email, String password) {
+    public ResponseEntity<User> verifyAuthentication(@RequestBody User userLogin) {
         try {
-            return new ResponseEntity<User>(userService.verifyAuthentication(email, password), HttpStatus.OK);
+            return new ResponseEntity<User>(userService.verifyAuthentication(userLogin.getEmailAddress(), userLogin.getPassword()), HttpStatus.OK);
         }
         catch (IllegalStateException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 
