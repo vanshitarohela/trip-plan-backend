@@ -23,7 +23,7 @@ public class Hotel {
     private String email;
     private String phoneNumber;
     private Location location;
-    private List<Review> reviews;
+    private Review review;
     private double price;
     private String description;
     private List<String> images;

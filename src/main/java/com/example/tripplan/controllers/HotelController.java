@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/hotels")
+@RequestMapping("hotels")
 @CrossOrigin(origins = {"http://localhost:4200/", "https://trip-plan-frontend.netlify.app/"})
 public class HotelController{
     private final static Logger logger = LoggerFactory.getLogger(HotelController.class);
